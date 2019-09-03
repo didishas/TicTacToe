@@ -16,7 +16,7 @@
 }
 
 body {
-    background-color: var(--base-background-color);
+    background-color: var(--header-color);
 }
 
 h1{
@@ -28,26 +28,40 @@ h1{
 
 .board {
     align-content: space-around;
-    background-color: var(--);
+    background-color: var(--normal-color);
     display: flex;
     font-size: 4.5em;
     flex-flow: row wrap;
     line-height: 85px;
-    margin: 0 auto;
-    height: 270px;
+    margin: 15px auto;
     text-align: center;
-    width: 270px;
+    height: 399px;
+    width: 399px;
 }
 
 .row {
     display: flex;
-    justify-content: space-evenly;
-    height: 88px;
-    width: 270px;
+    justify-content: space-around;
+    height: 99.75px;
+    width: 399px;
 }
 
 .cell {
-    background-color: #F9AA33;
-    height: 88px;
-    width: 88px;
+    background-color: var(--primary-color);
+    height: 96px;
+    width: 96px;
+}
+
+.cell-hover:hover{
+    background-color: var(--secondary-color);
+}
+
+.btn .button {
+    background-color: var(--primary-color);
+    border: 3px solid var(--secondary-color);
+    border-radius: 20px;
+    display: inline-block;
+    font-size: 1.35rem;
+    margin: 0 5px;
+    padding: 1px 5px;
 }
