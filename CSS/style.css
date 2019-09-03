@@ -1,0 +1,53 @@
+:root{
+    --dark-color: #232F34;
+    --normal-color: #344955;
+    --light-color: #82929A;
+    --base-background-color: #D2DBE0;
+    --header-color: #fff;
+    --primary-color: #F9AA33;
+    --secondary-color: #4A6572;
+}
+
+*, html, body {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Permanent Marker', cursive;
+}
+
+body {
+    background-color: var(--base-background-color);
+}
+
+h1{
+    background-color: var(--normal-color);
+    color: var(--header-color);
+    font-size: 6.5em;
+    text-align: center;
+}
+
+.board {
+    align-content: space-around;
+    background-color: var(--);
+    display: flex;
+    font-size: 4.5em;
+    flex-flow: row wrap;
+    line-height: 85px;
+    margin: 0 auto;
+    height: 270px;
+    text-align: center;
+    width: 270px;
+}
+
+.row {
+    display: flex;
+    justify-content: space-evenly;
+    height: 88px;
+    width: 270px;
+}
+
+.cell {
+    background-color: #F9AA33;
+    height: 88px;
+    width: 88px;
+}
