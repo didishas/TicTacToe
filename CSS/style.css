@@ -29,6 +29,7 @@ h1{
 .board {
     align-content: space-around;
     background-color: var(--normal-color);
+    cursor: pointer;
     display: flex;
     font-size: 4.5em;
     flex-flow: row wrap;
@@ -56,12 +57,22 @@ h1{
     background-color: var(--secondary-color);
 }
 
+.btn {
+    transform: translateX(42.5%);
+    transition: all 1.5s;
+}
+
 .btn .button {
     background-color: var(--primary-color);
     border: 3px solid var(--secondary-color);
     border-radius: 20px;
+    cursor: pointer;
     display: inline-block;
     font-size: 1.35rem;
     margin: 0 5px;
     padding: 1px 5px;
+}
+
+.win{
+    border-color: red;
 }

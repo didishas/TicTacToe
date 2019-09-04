@@ -1,12 +1,13 @@
 console.log('Serving ...');
 
-
+// bloc Init and components Private Datas
 const Dom = {
-    cells: document.querySelectorAll('.cell')
+    cells: document.querySelectorAll('.cell'),
+    resetBtn: document.querySelector('.btn .button:first-child'),
+    title: document.querySelector('h1')
     
 }
 
-// Private Data
 
 
 // Winnig combo
@@ -21,6 +22,7 @@ const winningCombo = [
     [3,5,7]
 ];
 
+let isGameOver = false;
 class player {
     constructor(name, isPlaying, symbol, combo, isWinner){
         this.name = name;
@@ -30,39 +32,81 @@ class player {
         this.isWinner = isWinner;
     }
 }
-let isGameOver = false;
 
 
 
 // functions helpers controllers
 
+//* GameController
 const initGame = function() {
     initialiseCells();
     
     players = [];
-    players.push(new player('playerOne', true, 'X', [], false))
-    players.push(new player('playerTwo', false, 'O', [], false))
+    players.push(new player('playerOne', true, 'X', [], false));
+    players.push(new player('playerTwo', false, 'O', [], false));
+    Dom.cells.forEach(elt => elt.style.backgroundColor = "#F9AA33");
+    Dom.title.textContent = 'Tic Tac Toe';
+    isGameOver = false;
+    console.clear();
+    console.log('Serving ...')
 }
 
+// * GameController
 const initialiseCells = function() {
     Dom.cells.forEach(cell => {
         cell.marqued = false;
         cell.textContent = ''
     });
 }
+
+// * GameController
 const checkActivePlayer = function(players){
     let indexFound = players.findIndex(player => player.isPlaying === true);
     return indexFound;
 }
 
-const changeIsPlaying = function(playerObj){
-    playerObj.isPlaying = !playerObj.isPlaying;
-}
-
+// * GameController
 const storeCell = function(e, indexActivePlayer) {
     let cellMarked = e.target.getAttribute('data-id');
     players[indexActivePlayer].combo.push(parseInt(cellMarked));
 }
+
+// * GameController
+
+
+function resetCheckCells(result, count) {
+    result = [];
+    count = 0;
+    return { result, count };
+}
+
+function displayWinner(result, isWinner) {
+    console.log(`Voici le resultat ${result}`);
+    markWinningCells(result);
+    freeseScreen();
+    isWinner = !isWinner;
+    return { __return: isWinner, isWinner };
+}
+
+// [] UI
+const markWinningCells = function(result) {
+    result.forEach(cell => Dom.cells[cell - 1].style.backgroundColor = 'red');
+}
+
+// [] UI
+const freeseScreen = function(){
+    Dom.cells.forEach(cell => {
+        cell.marqued = true;
+        cell.classList.remove('cell-hover')
+    });
+}
+
+// bloc GameRule
+const changeIsPlaying = function(playerObj){
+    playerObj.isPlaying = !playerObj.isPlaying;
+}
+
+// bloc GameRule
 const verifyWinner = function(secretCode, test, isWinner){
     let count = 0;
     let arr = [...secretCode];
@@ -79,12 +123,11 @@ const verifyWinner = function(secretCode, test, isWinner){
         }
         // ? if 3 in a row return isWinner else next line check...
         if(count === 3){
-        console.log(`Voici le resultat ${result}`);
-        isWinner = !isWinner;
-        return isWinner;
+            let __return;
+            ({ __return, isWinner } = displayWinner(result, isWinner));
+            return __return;
         } else {
-        result = [];
-        count = 0;
+            ({ result, count } = resetCheckCells(result, count));
         }
 }
 return isWinner;
@@ -94,7 +137,14 @@ return isWinner;
 let players = [];
 initGame();
 
-// UI Controller
+// [] UI Controller
+
+Dom.resetBtn.addEventListener('click', function(e){
+    initGame();
+})
+
+
+
 Dom.cells.forEach(cell => {
     cell.addEventListener('click', function(e){
         // ? if Game is not over 
@@ -116,7 +166,7 @@ Dom.cells.forEach(cell => {
         console.log(verifyWinner(winningCombo,players[indexActivePlayer].combo,players[indexActivePlayer].isWinner))
         if(verifyWinner(winningCombo,players[indexActivePlayer].combo,players[indexActivePlayer].isWinner)){
             isGameOver = verifyWinner(winningCombo,players[indexActivePlayer].combo,players[indexActivePlayer].isWinner);
-            players[indexActivePlayer].combo.forEach(num => cells[num].style.color = 'white')
+            Dom.title.textContent = `${players[indexActivePlayer].name} won`
         }
 
         // ? toggles Active player
@@ -125,4 +175,6 @@ Dom.cells.forEach(cell => {
     }
     });
 })
+
+
 
